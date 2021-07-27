@@ -25,13 +25,13 @@ def tuple_set(a, k):
     else:
         s = set()
         for i, ai in enumerate(a):
-            left = a[i+1:]
-            level_below = k - 1
-            if level_below == 1:
-                for c in tuple_set(left, level_below):
+            b = a[i+1:]
+            below = k - 1
+            if below == 1:
+                for c in tuple_set(b, below):
                     s.add((ai, c))
             else:
-                for c in tuple_set(left, level_below):
+                for c in tuple_set(b, below):
                     s.add((ai,) + c)
         return s
 
