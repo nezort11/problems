@@ -3,21 +3,24 @@
 Structures for holding data:
 
 Primitive:
-- list
-- dictionary
+- array
+- hash-table
+- class
 - tuple
 - set
-- class
-- named tuple
 
 Complex:
-- queue
-- dequeue
-- linked list
+- fronzen_set
+- named_tuple
 - graph
-- tree
+  - oriented (hash table)
+  - non-oriented (tuples)
+  - tree
+- queue (LIFO)
+  - dequeue
+- stack (FILO)
+- linked-list
 - ...
-
 
 Notes:
 - {} == [(,), (,)] (but unordered) - make dictionary from list of tumples
