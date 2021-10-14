@@ -4,6 +4,9 @@ from typing import List
 
 
 class Matrix:
+    def __init__(self, m: int, n: int):
+        self.values = [[0] * n for _ in range(m)]
+
     def __init__(self, values: List[List[int]]):
         # Assert matrix is matrix
         n = len(values[0])
@@ -20,6 +23,9 @@ class Matrix:
             # Return row
             return self.values[key]
 
+    def __len__(self):
+        return len(self.values)
+
     @property
     def m(self):
         """Return number of matrix rows."""
@@ -29,16 +35,6 @@ class Matrix:
     def n(self):
         """Return number of matrix columns."""
         return len(self.values[0])
-
-    def __add__(self, other):
-        pass
-
-    def __sub__(self, other):
-        pass
-
-    def __mul__(self, other):
-        """Matrix multiplication."""
-        pass
 
     def det(self) -> int:
         if self.m == 2 and self.n == 2:
@@ -56,7 +52,17 @@ class Matrix:
         else:
             return -self._minor(i, j)
 
+    def __sub__(self, other):
+        assert self.m == other.m and self.n == other.n
+        return Matrix(
+            [[self[i, j] - other[i, j] for j in range(self.n)] for i in range(self.m)]
+        )
+
     def norm(self):
+        return max([abs(e) for row in self.values for e in row])
+
+    def __mul__(self, other):
+        """Matrix multiplication."""
         pass
 
 
@@ -92,3 +98,9 @@ class NonSingularMatrix(SquareMatrix):
     def __init__(self, values: List[List[int]]):
         super().__init__(values)
         assert super().det() != 0
+
+
+class Vector(Matrix):
+    def __init__(self, values: List[List[int]]):
+        # Assert matrix is matrix
+        self.values = [deepcopy(values)]

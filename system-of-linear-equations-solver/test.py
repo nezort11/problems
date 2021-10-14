@@ -18,3 +18,8 @@ class SolverTests(unittest.TestCase):
         a = NonSingularMatrix([[2, 5, 4], [1, 3, 2], [2, 10, 9]])
         b = [30, 150, 110]
         self.assertEqual(Solver(a, b).cramer(), [-152, 270, -254])
+    
+    def test_2(self):
+        a = [[1, 2, 1, -1], [3, 1, 2, 2], [4, 4, 3, 4], [4, 0, 3, 1]]
+        b = [5, 8, 22, 3]
+        pprint(Solver(a, b).lu_substitution())
