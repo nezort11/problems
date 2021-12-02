@@ -1,4 +1,5 @@
 from copy import deepcopy
+from functools import cache
 from typing import Union
 
 
@@ -39,6 +40,7 @@ class Matrix:
         """
         return self.m
 
+    @cache
     def det(self) -> int:
         """
         Calculate matrix determinant.
@@ -87,6 +89,21 @@ class Matrix:
         return Matrix(
             [sum([self[i, j] * v[j] for j in range(self.n)]) for i in range(self.m)]
         )
+
+    def is_diagonally_dominant(self):
+        # Go through the rows
+        d_is_greater = False
+        for i in range(self.m):
+            d = self[i, i]
+            o = sum(map(abs, self[i])) - abs(d) # E |e| without i-th
+            if d > o:
+                d_is_greater = True
+            elif d == 0:
+                continue
+            else:
+                return False
+
+        return d_is_greater
 
 
 def exclude_ij(m: Matrix, i: int, j: int) -> Matrix:
