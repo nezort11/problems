@@ -11,15 +11,18 @@ function rotate(nums: number[], k: number): void {
   //   ...nums.slice(0, shiftIndex)
   // );
 
-  // only for k=1
-  // let prevNum = nums[nums.length - 2 - 0];
-  // for (let i = 0; i < nums.length; i++) {
-  //   const curNum = nums[i];
-  //   nums[i] = prevNum;
-  //   prevNum = curNum;
+  // Solution 1
+  // for (let j = 0; j < k; j += 1) {
+  //   let prevNum = nums[nums.length - 1];
+  //   for (let i = 0; i < nums.length; i++) {
+  //     const curNum = nums[i];
+  //     nums[i] = prevNum;
+  //     prevNum = curNum;
+  //   }
   // }
 
   // Solution 2
+  k = k % nums.length;
   for (let i = nums.length + k - 1; i >= 0; i -= 1) {
     nums[i] = nums.at(i - k)!;
   }
