@@ -14,22 +14,38 @@ const mapRomanToInt = {
   M: 1000,
 };
 
+// 7 ms Beats 56.74%
+// function romanToInt(s: string): number {
+//   let sumInt = 0;
+//   for (const sIndex of range(0, s.length)) {
+//     const sDigit = s[sIndex];
+//     const sDigitNext = s[sIndex + 1];
+//     const sDigitValue = mapRomanToInt[sDigit];
+
+//     if (
+//       (sDigit === "I" && (sDigitNext === "V" || sDigitNext === "X")) ||
+//       (sDigit === "X" && (sDigitNext === "L" || sDigitNext === "C")) ||
+//       (sDigit === "C" && (sDigitNext === "D" || sDigitNext === "M"))
+//     ) {
+//       sumInt -= sDigitValue;
+//       continue;
+//     }
+//     sumInt += sDigitValue;
+//   }
+//   return sumInt;
+// }
+
+// 8 ms Beats 45.88%
 function romanToInt(s: string): number {
   let sumInt = 0;
   for (const sIndex of range(0, s.length)) {
-    const sDigit = s[sIndex];
-    const sDigitNext = s[sIndex + 1];
-    const sDigitValue = mapRomanToInt[sDigit];
-
-    if (
-      (sDigit === "I" && (sDigitNext === "V" || sDigitNext === "X")) ||
-      (sDigit === "X" && (sDigitNext === "L" || sDigitNext === "C")) ||
-      (sDigit === "C" && (sDigitNext === "D" || sDigitNext === "M"))
-    ) {
+    const sDigitValue = mapRomanToInt[s[sIndex]];
+    const sDigitNextValue = mapRomanToInt[s[sIndex + 1]];
+    if (sDigitNextValue > sDigitValue) {
       sumInt -= sDigitValue;
-      continue;
+    } else {
+      sumInt += sDigitValue;
     }
-    sumInt += sDigitValue;
   }
   return sumInt;
 }
