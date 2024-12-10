@@ -2,3 +2,5 @@ __pycache__/
 .vscode/
 .DS_Store
 node_Modules
+/index.js
+/index.ts
