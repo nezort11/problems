@@ -91,12 +91,15 @@ function canCompleteCircuit(gas: number[], cost: number[]): number {
     // if we are in debt - move backwards
     if (tripTank < 0) {
       startStationIndex -= 1;
-      tripTank += gas.at(startStationIndex) - cost.at(startStationIndex);
+      const absStartStationIndex =
+        startStationIndex && gas.length + startStationIndex;
+      tripTank +=
+        gas.at(absStartStationIndex) - cost.at(absStartStationIndex);
     }
     // if we are in profit - move forwards
     else {
       endStationIndex += 1;
-      tripTank += gas.at(endStationIndex) - cost.at(endStationIndex);
+      tripTank += gas[endStationIndex] - cost[endStationIndex];
     }
   }
 }
