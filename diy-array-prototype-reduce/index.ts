@@ -18,19 +18,19 @@ Array.prototype.myReduce = function (callbackFn, initialValue) {
   let accumulator = initialValue;
 
   // Iterate only through own indices
-  const properties = Object.getOwnPropertyNames(this);
-  for (const property of properties) {
-    const index = parseInt(property);
-    if (isNaN(index)) {
-      continue;
-    }
+  const indecies = Object.keys(this); //Object.getOwnPropertyNames(this);
+  for (const index of indecies) {
+    // const index = parseInt(property);
+    // if (isNaN(index)) {
+    //   continue;
+    // }
 
     const item = this[index];
     if (accumulator === undefined) {
       accumulator = item;
       continue;
     }
-    const result = callbackFn(accumulator, item, index, this);
+    const result = callbackFn(accumulator, item, +index, this);
     accumulator = result;
   }
 
