@@ -1,0 +1,35 @@
+body {
+  font-family: sans-serif;
+  background-color: bisque;
+}
+
+.jobs-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  margin-bottom: 16px;
+}
+
+.job-card {
+  background-color: #ffffff;
+  /* padding: 2px; */
+  padding: 16px;
+  border: 1px solid #000000;
+  border-radius: 4px;
+}
+
+.job-card__link {
+  text-decoration: none;
+  color: initial;
+}
+
+.job-card__title {
+  margin: 0;
+  margin-bottom: 4px;
+}
+
+.job-card__description {
+  margin: 0;
+  font-size: 12px;
+}
