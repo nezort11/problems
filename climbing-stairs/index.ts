@@ -29,6 +29,9 @@
  * 2 + 1 + 2
  * 2 + 2 + 1
  *
+ * Pattern:
+ * - Dynamic programming?
+ *
  * Complexity:
  * - Algorithmic
  * O(n - 2) = O(n)
@@ -56,7 +59,7 @@ function climbStairs(n: number): number {
     // [prev, current] = [current, prev + current];
   }
   return prev + current;
-  // return climbStairs(n - 2) + climbStairs(n - 1);
+  // return climbStairs(n - 2) + climbStairs(n - 1); // with memoization
 }
 
 console.log(climbStairs(3));
