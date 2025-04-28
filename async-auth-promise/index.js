@@ -28,15 +28,11 @@ function auth() {
  * @returns {Promise}
  */
 function tryAuth(n) {
-  if (n < 0) {
-    return Promise.reject("No more attempts possible");
-  }
-
   return new Promise((resolve, reject) => {
     auth()
       .then(resolve)
       .catch((error) => {
-        if (n === 0) {
+        if (n <= 0) {
           reject(error);
         } else {
           tryAuth(n - 1)
