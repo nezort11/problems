@@ -19,6 +19,18 @@ Function.prototype.myCall = function (thisArg, ...argArray) {
   }
 };
 
+Function.prototype.mycall = function (thisArg, ...args) {
+  const thisContext = Object(thisArg ?? globalThis);
+  const func = this;
+  const funcKey = Symbol();
+  try {
+    thisContext[funcKey] = func;
+    return thisContext[funcKey](...args);
+  } finally {
+    delete thisContext[funcKey];
+  }
+};
+
 function Dog(name, weight) {
   this.name = name;
   this.weight = weight;
