@@ -3,6 +3,13 @@
  * @param {Function} callbackFn
  * @param {number} size
  *
+ * Cases:
+ * - [1, 2, 3, 4, 5], size = 3
+ * - [1, 2, 3], size = 10
+ * - [], size = 100
+ * - [1, 2, 3, ..., 100], size = 1
+ * - [1, 2, 3, 4, 5], size = undefined
+ *
  * @return {Promise}
  */
 export default function mapAsyncLimit(iterable, callbackFn, size) {
@@ -22,12 +29,14 @@ export default function mapAsyncLimit(iterable, callbackFn, size) {
 
     let itemIteratorIndex = chunkSize - 1;
     let itemError;
+    const abortController = new AbortController();
     const processItem = (itemIndex) => {
       const item = iterable[itemIndex];
       callbackFn(item)
         .then((result) => {
           // cancel resolve logic if error occuried
-          if (itemError) {
+          // IDEALLY: create an abort controller for each of processItem
+          if (abortController.signal.aborted) {
             return;
           }
 
@@ -49,7 +58,7 @@ export default function mapAsyncLimit(iterable, callbackFn, size) {
           }
         })
         .catch((error) => {
-          itemError ??= error;
+          abortController.abort();
           reject(error);
         });
     };
