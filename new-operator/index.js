@@ -12,10 +12,13 @@
 //   instanceThis.__proto__ = constructor.prototype;
 //   return constructorInstance || instanceThis;
 // };
+const isObject = (val) =>
+  (typeof val === "object" || typeof val === "function") && val !== null;
+
 const myNew = (Constructor, ...args) => {
   const instance = Object.create(Constructor.prototype);
-  const result = Constructor.apply(instance, args);
-  return result === Object(result) ? result : instance;
+  const result = Constructor.call(instance, ...args);
+  return isObject(result) ? result : instance;
 };
 
 function BigFrontEnd(name) {

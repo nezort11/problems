@@ -87,3 +87,75 @@ function productExceptSelf(nums: number[]): number[] {
 console.log(productExceptSelf([1, 2, 3, 4]));
 
 console.log(productExceptSelf([-1, 1, 0, -3, 3]));
+
+/**
+input:  arr = [8, 10, 2]
+output: [20, 16, 80] # by calculating: [10*2, 8*2, 8*10]
+
+input:  arr = [2, 7, 3, 4,]
+output: [84, 24, 56, 42] # by calculating:
+
+
+Approach:
+(1) Brute force
+Time: O(N^2)
+Space: O(1)
+
+- calculate all O(N-1) products
+
+(2) O(N) without division
+
+Space: O(2N) = O(N)
+
+input:  arr = [2,      7,     3,    4,    8,     2,   4,     3]
+
+leftProduct = [2,     14,     42,   168, 1344, 2688, 10752, 32256]
+
+rightProduct = [32256, 16128, 2304, 768, 192,    24,  12,      3]
+
+result = [...]
+
+^
+
+
+Edge cases:
+
+input:  arr = [2]
+output => [0]
+
+input:  arr = []
+output => []
+ */
+
+function arrayOfArrayProducts(arr) {
+  if (arr.length === 1) {
+    return [];
+  }
+
+  const leftProduct = new Array(arr.length);
+  leftProduct[0] = arr[0];
+  const rightProduct = new Array(arr.length);
+  rightProduct[arr.length - 1] = arr[arr.length - 1];
+
+  for (let i = 1; i < arr.length; i++) {
+    leftProduct[i] = leftProduct[i - 1] * arr[i];
+  }
+  for (let i = arr.length - 2; i >= 0; i--) {
+    rightProduct[i] = arr[i] * rightProduct[i + 1];
+  }
+
+  const result = new Array(arr.length);
+  for (let i = 0; i < arr.length; i++) {
+    const lp = leftProduct[i - 1];
+    const rp = rightProduct[i + 1];
+    // e.g. [2]
+    // if (lp === undefined && rp === undefined) {
+    //     result[i] = 0;
+    //     continue;
+    // }
+    // e.g. [2, 3]
+    result[i] = (lp ?? 1) * (rp ?? 1);
+  }
+
+  return result;
+}
